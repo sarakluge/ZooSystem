@@ -1,0 +1,57 @@
+@startuml
+
+class Zoo {
+    -zookeepers : List<Zookeeper>
+    -animals : List<Animal>
+    -cages : List<Cage>
+    +showAnimals() : void
+    +showCages() : void
+}
+class Animal {
+    -species : String
+    -age : int
+    -diet : String
+}
+
+class Mammal {
+    - hasFur : boolean
+    + giveBirth() : void
+}
+
+class Bird {
+    - wingspan : double
+    + fly() : void
+}
+
+class Reptile {
+    - isVenomous : boolean
+    + shedSkin() : void
+}
+
+
+class Cage {
+    -size : String
+    -capacity : int
+    -animals : List<Animal>
+    +addAnimalToCage(animal : Animal, quantity : int)
+    +showAnimals() : void
+}
+
+class Zookeeper {
+    -name : String
+    -responsibility : List<Cage>
+    +addResponsibility(cage : Cage) : void
+    +feedAssignedCages() : void
+}
+
+Animal <|-- Mammal
+Animal <|-- Bird
+Animal <|-- Reptile
+
+Zoo --> Zookeeper
+Zoo --> Animal
+Zoo --> Cage
+Cage --> Animal
+Zookeeper --> Cage
+
+@enduml
