@@ -15,6 +15,10 @@ public class Zookeeper {
     }
 
     public void feedAssignesCages() {
-        System.out.println("The cages got food");
+        System.out.println(name + " is feeding assigned cages...");
+
+        for (Cage cage : responsibilities) {
+            System.out.println("Feeding animals in cage " + cage);
+        }
     }
 }
