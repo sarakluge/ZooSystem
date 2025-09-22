@@ -9,6 +9,11 @@ public class Mammal extends Animal{
     }
 
     public void giveBirt() {
-        System.out.println("Congratulation! A " + "gave birth");
+        System.out.println("Congratulation! A " + species + " gave birth");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + (hasFur ? ", has fur" : ", no fur");
     }
 }

@@ -9,6 +9,11 @@ public class Reptile extends Animal{
     }
 
     public void shedSkin() {
-        System.out.println("A reptile has skin");
+        System.out.println(species + " shed its skin");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + (isVenomous ? ", venomous" : ", not venomous");
     }
 }

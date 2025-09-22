@@ -9,6 +9,11 @@ public class Bird extends Animal{
     }
 
     public void fly() {
-        System.out.println("A bird is flying");
+        System.out.println("A " + species + "is flying!");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", wingspan: " + wingspan + "m";
     }
 }
