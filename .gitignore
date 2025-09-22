@@ -1,0 +1,19 @@
+# IntelliJ IDEA
+.idea/
+
+# Byggfiler / kompilat
+out/
+build/
+target/
+*.class
+*.jar
+
+# VS Code
+.vscode/
+
+# OS-specifika
+.DS_Store
+Thumbs.db
+
+# Loggar
+*.log
