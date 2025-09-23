@@ -8,7 +8,7 @@ public class Mammal extends Animal{
         this.hasFur = hasFur;
     }
 
-    public void giveBirt() {
+    public void giveBirth() {
         System.out.println("Congratulation! A " + species + " gave birth");
     }
 

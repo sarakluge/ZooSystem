@@ -15,14 +15,6 @@ public abstract class Animal {
         return species;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public String getDiet() {
-        return diet;
-    }
-
     @Override
     public String toString() {
         return species + " (age " + age + ", diet: " + diet + ")";

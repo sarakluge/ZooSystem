@@ -13,6 +13,18 @@ public class Zoo {
         this.cages = new ArrayList<>();
     }
 
+    public List<Zookeeper> getZookeepers() {
+        return zookeepers;
+    }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public List<Cage> getCages() {
+        return cages;
+    }
+
     public void addZookeeper(Zookeeper zookeeper) {
         zookeepers.add(zookeeper);
     }
@@ -26,17 +38,23 @@ public class Zoo {
     }
 
     public void showAnimals() {
-        System.out.println("All animals in the zoo:");
-        for (Animal animal : animals) {
-            System.out.println(" - " + animal);
+        System.out.println("=== Animals ===");
+        for (int i = 0; i < animals.size(); i++) {
+            System.out.println((i + 1) + ". " + animals.get(i));
         }
     }
 
     public void showCages() {
-        System.out.println("Cages in the zoo:");
-        for (Cage cage : cages) {
-            cage.showAnimals();
+        System.out.println("=== Cages ===");
+        for (int i = 0; i < cages.size(); i++) {
+            System.out.println((i + 1) + ". " + cages.get(i).getName());
         }
     }
 
+    public void showZookeepers() {
+        System.out.println("=== Zookeepers ===");
+        for (int i = 0; i < zookeepers.size(); i++) {
+            System.out.println((i + 1) + ". " + zookeepers.get(i).getName());
+        }
+    }
 }

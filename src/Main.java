@@ -1,15 +1,196 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import animals.*;
+import java.util.Scanner;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static Zoo zoo = new Zoo();
+
+    public static void main(String[] args) {
+        defaultData();
+
+        boolean runMainMenu = true;
+
+        while (runMainMenu) {
+            System.out.println("\n=== Zoo Management Menu ===");
+            System.out.println("1. Show all animals");
+            System.out.println("2. Show all cages");
+            System.out.println("3. Show all zookeepers");
+            System.out.println("4. Add animal");
+            System.out.println("5. Add cage");
+            System.out.println("6. Add zookeeper");
+            System.out.println("7. Assign cage to zookeeper");
+            System.out.println("8. Let zookeeper feed animal");
+            System.out.println("9. Use animal special ability");
+            System.out.println("0. Exit");
+            System.out.print("Choose option: ");
+            String choice = scanner.nextLine();
+
+
+            switch (choice) {
+                case "1": zoo.showAnimals(); break;
+                case "2": zoo.showCages(); break;
+                case "3": zoo.showZookeepers(); break;
+                case "4": addAnimalToZoo(); break;
+                case "5": addCageToZoo(); break;
+                case "6": addZookeeperToZoo(); break;
+                case "7": assignCageToZookeeper(); break;
+                case "8": feedAnimals(); break;
+                case "9": animalActionMenu(); break;
+                case "0": runMainMenu = false; break;
+                default: System.out.println("Invalid choice.");
+            }
         }
+        System.out.println("Goodbye!");
+    }
+
+    private  static void addAnimalToZoo() {
+        boolean runAnimalMenu = true;
+
+        while (runAnimalMenu) {
+            System.out.println("\n=== Add Animal Menu ===");
+            System.out.println("1. Bird");
+            System.out.println("2. Mammal");
+            System.out.println("3. Reptile");
+            System.out.println("0. Back to main menu");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (choice == 0) {
+                runAnimalMenu = false;
+                continue;
+            }
+
+            System.out.print("Species: ");
+            String species = scanner.nextLine();
+
+            System.out.print("Age: ");
+            int age = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("Diet: ");
+            String diet = scanner.nextLine();
+
+            Animal animal = null;
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Wingspan (m): ");
+                    double wingspan = scanner.nextDouble();
+                    scanner.nextLine();
+                    animal = new Bird(species, age, diet, wingspan);
+                }
+                case 2 -> {
+                    System.out.print("Has fur? (true/false): ");
+                    boolean hasFur = Boolean.parseBoolean(scanner.nextLine());
+                    animal = new Mammal(species, age, diet, hasFur);
+                }
+                case 3 -> {
+                    System.out.print("Is venomous? (true/false): ");
+                    boolean venomous = Boolean.parseBoolean(scanner.nextLine());
+                    animal = new Reptile(species, age, diet, venomous);
+                }
+                default -> System.out.println("Invalid choice, try again!");
+            }
+
+            if (animal != null) {
+                zoo.addAnimal(animal);
+                System.out.println("Animal added: " + animal);
+            }
+        }
+    }
+
+    private static void addCageToZoo() {
+        System.out.println("Cage name: ");
+        String name = scanner.nextLine();
+        System.out.println("Size: ");
+        String size = scanner.nextLine();
+        System.out.println("Capacity: ");
+        int capacity = scanner.nextInt();
+        scanner.nextLine();
+
+        Cage cage = new Cage(name, size, capacity);
+        zoo.addCage(cage);
+        System.out.println("Cage added: " + name);
+    }
+
+    private static void addZookeeperToZoo() {
+        System.out.print("Zookeeper name: ");
+        String name = scanner.nextLine();
+        Zookeeper zookeeper = new Zookeeper(name);
+        zoo.addZookeeper(zookeeper);
+        System.out.println("Zookeeper " + name + " added.");
+    }
+
+    private static void assignCageToZookeeper() {
+        zoo.showZookeepers();
+        System.out.println("Choose zookeeper number: ");
+        int zookeeperIndex = scanner.nextInt() -1;
+        scanner.nextLine();
+
+        zoo.showCages();
+        System.out.println("Choose cage number: ");
+        int cageIndex = scanner.nextInt() -1;
+        scanner.nextLine();
+
+        Zookeeper zookeeper = zoo.getZookeepers().get(zookeeperIndex);
+        Cage cage = zoo.getCages().get(cageIndex);
+
+        zookeeper.addResponsibility(cage);
+        System.out.println("Assigned cage " + cage + " to " + zookeeper.getName());
+    }
+
+    private static void feedAnimals() {
+        zoo.showZookeepers();
+        System.out.print("Choose zookeeper index: ");
+        int zookeeperIndex = scanner.nextInt() -1;
+        scanner.nextLine();
+
+        Zookeeper zookeeper = zoo.getZookeepers().get(zookeeperIndex);
+        zookeeper.feedAssignedCages();
+    }
+
+    private static void animalActionMenu() {
+        zoo.showAnimals();
+        System.out.print("Choose animal index: ");
+        int index = scanner.nextInt() -1;
+        scanner.nextLine();
+
+        if (index < 0 || index >= zoo.getAnimals().size()) {
+            System.out.println("Invalid animal index.");
+            return;
+        }
+
+        Animal animal = zoo.getAnimals().get(index);
+
+        switch (animal) {
+            case Bird bird -> bird.fly();
+            case Mammal mammal -> mammal.giveBirth();
+            case Reptile reptile -> reptile.shedSkin();
+            case null, default -> System.out.println("No special action for this animal.");
+        }
+    }
+
+    private static void defaultData() {
+        Cage reptileCage = new Cage("Reptile House", "Medium", 3);
+        Cage birdCage = new Cage("Aviary", "Large", 5);
+        zoo.addCage(reptileCage);
+        zoo.addCage(birdCage);
+
+        Animal snake = new Reptile("Cobra", 4, "Carnivore", true);
+        Animal parrot = new Bird("Parrot", 2, "Herbivore", 0.4);
+        Animal lion = new Mammal("Lion", 5, "Carnivore", true);
+
+        reptileCage.addAnimalToCage(snake);
+        birdCage.addAnimalToCage(parrot);
+
+        zoo.addAnimal(snake);
+        zoo.addAnimal(parrot);
+        zoo.addAnimal(lion);
+
+        Zookeeper alice = new Zookeeper("Alice");
+        alice.addResponsibility(reptileCage);
+        zoo.addZookeeper(alice);
     }
 }

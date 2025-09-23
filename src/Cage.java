@@ -15,6 +15,10 @@ public class Cage {
         this.animals = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addAnimalToCage(Animal animal) {
         if (animals.size() < capacity) {
             animals.add(animal);
@@ -29,5 +33,10 @@ public class Cage {
         for (Animal animal : animals) {
             System.out.println(" - " + animal);
         }
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + size + ", capacity=" + capacity + ")";
     }
 }
