@@ -1,47 +1,64 @@
 @startuml
 
-class Zoo {
+skinparam classBorderColor #0288D1
+skinparam classFontColor #37474F
+skinparam ArrowColor #0288D1
+
+
+class Zoo #81D4FA  {
     -zookeepers : List<Zookeeper>
     -animals : List<Animal>
     -cages : List<Cage>
+    +getAnimals() : List<Animal>
+    +getCages() : List<Cage>
+    +getZookeepers() : List<Zookeeper>
+    +addAnimal(animal : Animal) : void
+    +addCage(cage : Cage) : void
+    +addZookeeper(zookeeper : Zookeeper) : void
     +showAnimals() : void
     +showCages() : void
-}
-class Animal {
-    -species : String
-    -age : int
-    -diet : String
+    +showZookeepers() : void
 }
 
-class Mammal {
+abstract class Animal #81D4FA  {
+    #species : String
+    #age : int
+    #diet : String
+    +toString() : String
+}
+
+class Mammal #E1F5FE  {
     - hasFur : boolean
     + giveBirth() : void
 }
 
-class Bird {
+class Bird #E1F5FE   {
     - wingspan : double
     + fly() : void
 }
 
-class Reptile {
+class Reptile #E1F5FE   {
     - isVenomous : boolean
     + shedSkin() : void
 }
 
 
-class Cage {
+class Cage #81D4FA {
+    -name : String
     -size : String
     -capacity : int
     -animals : List<Animal>
-    +addAnimalToCage(animal : Animal, quantity : int)
+    +addAnimalToCage(animal : Animal)
     +showAnimals() : void
+    +toString() : String
 }
 
-class Zookeeper {
+class Zookeeper #81D4FA {
     -name : String
     -responsibility : List<Cage>
     +addResponsibility(cage : Cage) : void
     +feedAssignedCages() : void
+    +toString() : String
 }
 
 Animal <|-- Mammal
