@@ -23,23 +23,12 @@ public class Cage {
         return name;
     }
 
-    public List<Animal> getAnimals() {
-        return animals;
-    }
-
     public void addAnimalToCage(Animal animal) {
         if (animals.size() < capacity) {
             animals.add(animal);
             System.out.println(animal.getSpecies() + " added to cage " + name);
         } else {
             System.out.println("Cage " + name + " is full!");
-        }
-    }
-
-    public void showAnimals() {
-        System.out.println("Cage " + name + " contains: ");
-        for (Animal animal : animals) {
-            System.out.println(" - " + animal);
         }
     }
 
@@ -51,6 +40,24 @@ public class Cage {
         for (Animal animal : animals) {
             System.out.println(" - " + animal.getSpecies());
         }
+    }
+
+    public void addFood() {
+        food += 3;
+        System.out.println(3 + " food added to " + name + " 🥕");
+    }
+
+    public void cleanCage() {
+        waste = 0;
+        System.out.println("Cage " + name + " has been cleaned 🧹");
+    }
+
+    public void nextDay() {
+        int foodEaten = (int)(Math.random() * (food + 1));
+        food -= foodEaten;
+
+        int wasteIncrease = (int)(Math.random() * 4);
+        waste = Math.min(10, waste + wasteIncrease);
     }
 
     @Override

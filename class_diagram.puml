@@ -51,6 +51,9 @@ class Cage #81D4FA {
     -animals : List<Animal>
     -food : int
     -waste : int
+    +addFood() : void
+    +cleanCage() : void
+    +nextDay() : void
     +showCageStatus() : void
     +addAnimalToCage(animal : Animal)
     +showAnimals() : void
@@ -62,6 +65,7 @@ class Zookeeper #81D4FA {
     -responsibility : List<Cage>
     +addResponsibility(cage : Cage) : void
     +feedAssignedCages() : void
+    +showAssignedCages() : void
     +toString() : String
 }
 

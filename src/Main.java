@@ -9,22 +9,24 @@ public class Main {
         defaultData();
 
         boolean runMainMenu = true;
+        System.out.println("\n╔═══════════════════════════╗");
+        System.out.println("🦓  WELCOME TO THE ZOO APP  🦒");
+        System.out.println("╚═══════════════════════════╝");
+        zoo.showZooStatus();
 
         while (runMainMenu) {
-            System.out.println("\n╔═══════════════════════════╗");
-            System.out.println("🦓  WELCOME TO THE ZOO APP  🦒");
-            System.out.println("╚═══════════════════════════╝");
-            zoo.showZooStatus();
             System.out.println("\n=== Zoo Management Menu ===");
-            System.out.println("1️⃣  Show all animals");
-            System.out.println("2️⃣  Show all cages");
-            System.out.println("3️⃣  Show all zookeepers");
-            System.out.println("4️⃣  Add animal");
-            System.out.println("5️⃣  Add cage");
-            System.out.println("6️⃣  Add zookeeper");
-            System.out.println("7️⃣  Assign cage to zookeeper");
-            System.out.println("8️⃣  Let zookeeper feed animals");
-            System.out.println("9️⃣  Use animal special ability");
+            System.out.println("1️⃣  Show all zoo status");
+            System.out.println("2️⃣  Show all animals");
+            System.out.println("3️⃣  Show all cages");
+            System.out.println("4️⃣  Show all zookeepers");
+            System.out.println("5️⃣  Add animal");
+            System.out.println("6️⃣  Add cage");
+            System.out.println("7️⃣  Add zookeeper");
+            System.out.println("8️⃣  Assign cage to zookeeper");
+            System.out.println("9️⃣  Zookeeper menu");
+            System.out.println("🔟  Use animal special ability");
+            System.out.println("1️⃣1️⃣  Next day");
             System.out.println("0️⃣  Exit");
             System.out.println("----------------------------");
             System.out.print("👉 Choose option: ");
@@ -32,20 +34,75 @@ public class Main {
 
 
             switch (choice) {
-                case "1": zoo.showAnimals(); break;
-                case "2": zoo.showCages(); break;
-                case "3": zoo.showZookeepers(); break;
-                case "4": addAnimalToZoo(); break;
-                case "5": addCageToZoo(); break;
-                case "6": addZookeeperToZoo(); break;
-                case "7": assignCageToZookeeper(); break;
-                case "8": feedAnimals(); break;
-                case "9": animalActionMenu(); break;
-                case "0": runMainMenu = false; break;
-                default: System.out.println("Invalid choice.");
+                case "1" -> zoo.showZooStatus();
+                case "2" -> zoo.showAnimals();
+                case "3" -> zoo.showCages();
+                case "4" -> zoo.showZookeepers();
+                case "5" -> addAnimalToZoo();
+                case "6" -> addCageToZoo();
+                case "7" -> addZookeeperToZoo();
+                case "8" -> assignCageToZookeeper();
+                case "9" -> zookeeperMenu();
+                case "10" -> animalActionMenu();
+                case "11" -> nextDay();
+                case "0" -> runMainMenu = false;
+                default -> System.out.println("Invalid choice.");
             }
         }
         System.out.println("Goodbye!");
+    }
+
+    private static void zookeeperMenu() {
+        if (zoo.getZookeepers().isEmpty()) {
+            System.out.println("⚠️ No zookeepers available.");
+            return;
+        }
+
+        System.out.println("\n=== Choose a Zookeeper ===");
+        zoo.showZookeepers();
+        System.out.print("Enter zookeeper number: ");
+        int index = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (index < 0 || index >= zoo.getZookeepers().size()) {
+            System.out.println("Invalid zookeeper.");
+            return;
+        }
+
+        Zookeeper zookeeper = zoo.getZookeepers().get(index);
+        boolean runZookeeperMenu = true;
+
+        while (runZookeeperMenu) {
+            System.out.println("\n=== Zookeeper Menu (" + zookeeper.getName() + ") ===");
+            System.out.println("1️⃣  Show my assigned cages");
+            System.out.println("2️⃣  Fill food in my cages");
+            System.out.println("3️⃣  Clean my cages");
+            System.out.println("0️⃣  Back to main menu");
+            System.out.print("👉 Choose option: ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1" -> zookeeper.showAssignedCages();
+                case "2" -> {
+                    zookeeper.feedAssignedCages();
+                }
+                case "3" -> {
+                    zookeeper.cleanAssignedCages();
+                }
+                case "0" -> runZookeeperMenu = false;
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    private static void nextDay() {
+        System.out.println("\n🌞 A new day begins...");
+        for (Cage cage : zoo.getCages()) {
+            cage.nextDay();
+        }
+        System.out.println("✅ All cages updated for the new day!");
+
+        zoo.showZooStatus();
     }
 
     private  static void addAnimalToZoo() {
@@ -144,16 +201,6 @@ public class Main {
 
         zookeeper.addResponsibility(cage);
         System.out.println("Assigned cage " + cage + " to " + zookeeper.getName());
-    }
-
-    private static void feedAnimals() {
-        zoo.showZookeepers();
-        System.out.print("Choose zookeeper number: ");
-        int zookeeperIndex = scanner.nextInt() -1;
-        scanner.nextLine();
-
-        Zookeeper zookeeper = zoo.getZookeepers().get(zookeeperIndex);
-        zookeeper.feedAssignedCages();
     }
 
     private static void animalActionMenu() {

@@ -14,10 +14,6 @@ public class Zookeeper {
         return name;
     }
 
-    public List<Cage> getResponsibilities() {
-        return responsibilities;
-    }
-
     public void addResponsibility(Cage cage) {
         responsibilities.add(cage);
     }
@@ -28,17 +24,30 @@ public class Zookeeper {
             return;
         }
 
-        System.out.println("\n" + name + " is feeding the assigned cages... 🍏🥩🥕");
+        System.out.println("\n👩‍🌾 " + name + " is adding food to assigned cages... 🍏🥩🥕");
         for (Cage cage : responsibilities) {
-            System.out.println("  → Feeding animals in " + cage.getName() + "...");
-            cage.showAnimals();
+            cage.addFood();
+        }
+    }
+
+    public void cleanAssignedCages() {
+        System.out.println("\n" + name + " is cleaning assigned cages...");
+        for (Cage cage : responsibilities) {
+            cage.cleanCage();
+        }
+    }
+
+    public void showAssignedCages() {
+        System.out.println("\n" + name + "'s assigned cages:");
+        for (Cage cage : responsibilities) {
+            cage.showCageStatus();
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Zookeeper: ").append(name);
+        sb.append(name);
 
         if (responsibilities.isEmpty()) {
             sb.append(" (no cages assigned)");
