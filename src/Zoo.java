@@ -38,23 +38,41 @@ public class Zoo {
     }
 
     public void showAnimals() {
-        System.out.println("=== Animals ===");
-        for (int i = 0; i < animals.size(); i++) {
-            System.out.println((i + 1) + ". " + animals.get(i));
+        System.out.println("\n🦁 Current Animals in the Zoo 🐍🦜🦖:");
+        if (animals.isEmpty()) {
+            System.out.println("  No animals yet. Add some!");
+        } else {
+            int index = 1;
+            for (Animal animal : animals) {
+                System.out.println("  " + index + ". " + animal);
+                index++;
+            }
         }
     }
 
     public void showCages() {
-        System.out.println("=== Cages ===");
-        for (int i = 0; i < cages.size(); i++) {
-            System.out.println((i + 1) + ". " + cages.get(i).getName());
+        System.out.println("\n🏠 Current Cages:");
+        if (cages.isEmpty()) {
+            System.out.println("  No cages created yet.");
+        } else {
+            int index = 1;
+            for (Cage cage : cages) {
+                System.out.println("  " + index + ". " + cage);
+                index++;
+            }
         }
     }
 
     public void showZookeepers() {
-        System.out.println("=== Zookeepers ===");
-        for (int i = 0; i < zookeepers.size(); i++) {
-            System.out.println((i + 1) + ". " + zookeepers.get(i).getName());
+        System.out.println("\n👩‍🌾 Zookeepers on duty:");
+        if (zookeepers.isEmpty()) {
+            System.out.println("  No zookeepers yet.");
+        } else {
+            int index = 1;
+            for (Zookeeper zookeeper : zookeepers) {
+                System.out.println("  " + index + ". " + zookeeper);
+                index++;
+            }
         }
     }
 }

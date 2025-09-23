@@ -11,18 +11,22 @@ public class Main {
         boolean runMainMenu = true;
 
         while (runMainMenu) {
+            System.out.println("\n╔═══════════════════════════╗");
+            System.out.println("🦓  WELCOME TO THE ZOO APP  🦒");
+            System.out.println("╚═══════════════════════════╝");
             System.out.println("\n=== Zoo Management Menu ===");
-            System.out.println("1. Show all animals");
-            System.out.println("2. Show all cages");
-            System.out.println("3. Show all zookeepers");
-            System.out.println("4. Add animal");
-            System.out.println("5. Add cage");
-            System.out.println("6. Add zookeeper");
-            System.out.println("7. Assign cage to zookeeper");
-            System.out.println("8. Let zookeeper feed animal");
-            System.out.println("9. Use animal special ability");
-            System.out.println("0. Exit");
-            System.out.print("Choose option: ");
+            System.out.println("1️⃣  Show all animals");
+            System.out.println("2️⃣  Show all cages");
+            System.out.println("3️⃣  Show all zookeepers");
+            System.out.println("4️⃣  Add animal");
+            System.out.println("5️⃣  Add cage");
+            System.out.println("6️⃣  Add zookeeper");
+            System.out.println("7️⃣  Assign cage to zookeeper");
+            System.out.println("8️⃣  Let zookeeper feed animals");
+            System.out.println("9️⃣  Use animal special ability");
+            System.out.println("0️⃣  Exit");
+            System.out.println("----------------------------");
+            System.out.print("👉 Choose option: ");
             String choice = scanner.nextLine();
 
 
@@ -143,7 +147,7 @@ public class Main {
 
     private static void feedAnimals() {
         zoo.showZookeepers();
-        System.out.print("Choose zookeeper index: ");
+        System.out.print("Choose zookeeper number: ");
         int zookeeperIndex = scanner.nextInt() -1;
         scanner.nextLine();
 
@@ -152,8 +156,9 @@ public class Main {
     }
 
     private static void animalActionMenu() {
+        System.out.println("\n🎯 Choose an animal to perform its special ability:");
         zoo.showAnimals();
-        System.out.print("Choose animal index: ");
+        System.out.print("Choose animal number: ");
         int index = scanner.nextInt() -1;
         scanner.nextLine();
 
@@ -173,24 +178,52 @@ public class Main {
     }
 
     private static void defaultData() {
-        Cage reptileCage = new Cage("Reptile House", "Medium", 3);
-        Cage birdCage = new Cage("Aviary", "Large", 5);
+        Cage reptileCage = new Cage("Reptile House", "Medium", 5);
+        Cage birdCage = new Cage("Aviary", "Large", 10);
+        Cage mammalCage = new Cage("Savannah", "Large", 8);
+        Cage smallCage = new Cage("Small Pet Cage", "Small", 3);
+
         zoo.addCage(reptileCage);
         zoo.addCage(birdCage);
+        zoo.addCage(mammalCage);
+        zoo.addCage(smallCage);
 
-        Animal snake = new Reptile("Cobra", 4, "Carnivore", true);
+        Animal cobra = new Reptile("Cobra", 4, "Carnivore", true);
+        Animal python = new Reptile("Python", 6, "Carnivore", false);
         Animal parrot = new Bird("Parrot", 2, "Herbivore", 0.4);
+        Animal eagle = new Bird("Eagle", 3, "Carnivore", 2.0);
         Animal lion = new Mammal("Lion", 5, "Carnivore", true);
+        Animal tiger = new Mammal("Tiger", 4, "Carnivore", true);
+        Animal rabbit = new Mammal("Rabbit", 1, "Herbivore", false);
 
-        reptileCage.addAnimalToCage(snake);
+        reptileCage.addAnimalToCage(cobra);
+        reptileCage.addAnimalToCage(python);
         birdCage.addAnimalToCage(parrot);
+        birdCage.addAnimalToCage(eagle);
+        mammalCage.addAnimalToCage(lion);
+        mammalCage.addAnimalToCage(tiger);
+        smallCage.addAnimalToCage(rabbit);
 
-        zoo.addAnimal(snake);
+        zoo.addAnimal(cobra);
+        zoo.addAnimal(python);
         zoo.addAnimal(parrot);
+        zoo.addAnimal(eagle);
         zoo.addAnimal(lion);
+        zoo.addAnimal(tiger);
+        zoo.addAnimal(rabbit);
 
         Zookeeper alice = new Zookeeper("Alice");
         alice.addResponsibility(reptileCage);
+        Zookeeper bob = new Zookeeper("Bob");
+        bob.addResponsibility(birdCage);
+        Zookeeper cecilia = new Zookeeper("Cecilia");
+        cecilia.addResponsibility(mammalCage);
+        Zookeeper david = new Zookeeper("David");
+        david.addResponsibility(smallCage);
+
         zoo.addZookeeper(alice);
+        zoo.addZookeeper(bob);
+        zoo.addZookeeper(cecilia);
+        zoo.addZookeeper(david);
     }
 }

@@ -24,13 +24,13 @@ public class Zookeeper {
 
     public void feedAssignedCages() {
         if (responsibilities.isEmpty()) {
-            System.out.println(name + " has no cages to feed.");
+            System.out.println("\n" + name + " has no cages to feed. 😅");
             return;
         }
 
-        System.out.println(name + " is feeding assigned cages...");
+        System.out.println("\n" + name + " is feeding the assigned cages... 🍏🥩🥕");
         for (Cage cage : responsibilities) {
-            System.out.println(" -> Feeding animals in " + cage.getName());
+            System.out.println("  → Feeding animals in " + cage.getName() + "...");
             cage.showAnimals();
         }
     }
