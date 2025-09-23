@@ -12,6 +12,7 @@ class Zoo #81D4FA  {
     +getAnimals() : List<Animal>
     +getCages() : List<Cage>
     +getZookeepers() : List<Zookeeper>
+    +showZooStatus() : void
     +addAnimal(animal : Animal) : void
     +addCage(cage : Cage) : void
     +addZookeeper(zookeeper : Zookeeper) : void
@@ -48,6 +49,9 @@ class Cage #81D4FA {
     -size : String
     -capacity : int
     -animals : List<Animal>
+    -food : int
+    -waste : int
+    +showCageStatus() : void
     +addAnimalToCage(animal : Animal)
     +showAnimals() : void
     +toString() : String

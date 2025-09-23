@@ -14,6 +14,7 @@ public class Main {
             System.out.println("\n╔═══════════════════════════╗");
             System.out.println("🦓  WELCOME TO THE ZOO APP  🦒");
             System.out.println("╚═══════════════════════════╝");
+            zoo.showZooStatus();
             System.out.println("\n=== Zoo Management Menu ===");
             System.out.println("1️⃣  Show all animals");
             System.out.println("2️⃣  Show all cages");

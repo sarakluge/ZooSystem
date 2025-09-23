@@ -1,4 +1,8 @@
 import animals.Animal;
+import animals.Bird;
+import animals.Mammal;
+import animals.Reptile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,24 @@ public class Zoo {
 
     public void addCage(Cage cage) {
         cages.add(cage);
+    }
+
+    public void showZooStatus() {
+        System.out.println("\n=== Zoo Status ===");
+
+        long birds = animals.stream().filter(a -> a instanceof Bird).count();
+        long mammals = animals.stream().filter(a -> a instanceof Mammal).count();
+        long reptiles = animals.stream().filter(a -> a instanceof Reptile).count();
+
+        System.out.println("Birds: " + "🐦 ".repeat((int) birds));
+        System.out.println("Mammals: " + "🦁 ".repeat((int) mammals));
+        System.out.println("Reptiles: " + "🐍 ".repeat((int) reptiles));
+
+        for (Cage cage : cages) {
+            cage.showCageStatus();
+        }
+
+        System.out.println("=================\n");
     }
 
     public void addAnimal(Animal animal) {
