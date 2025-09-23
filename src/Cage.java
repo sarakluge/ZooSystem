@@ -57,7 +57,7 @@ public class Cage {
         food -= foodEaten;
 
         int wasteIncrease = (int)(Math.random() * 4);
-        waste = Math.min(10, waste + wasteIncrease);
+        waste += wasteIncrease;
     }
 
     @Override
